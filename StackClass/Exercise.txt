@@ -1,0 +1,11 @@
+Write a Java class that implements a data type Stack and provides the functionally below. Do not use any java containers, i.e. ArrayList.
+a.	Create Stack object of specified maximum size
+b.	Push function for any kind of object
+c.	Pop function
+d.	Peek function
+e.	Grow function – grow Stack by given size
+f.	isEmpty function
+g.	isFull function
+h.	Size function
+
+The Stack implementation should be thread safe and should be unit tested.
