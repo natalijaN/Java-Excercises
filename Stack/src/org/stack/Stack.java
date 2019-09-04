@@ -77,7 +77,7 @@ public class Stack<T> implements IStack<T> {
 				numOfElementsInStack++;
 			}
 		}
-		if (numOfElementsInStack <= length) {
+		if (numOfElementsInStack < length) {
 			return false;
 		}			
 		return true;
