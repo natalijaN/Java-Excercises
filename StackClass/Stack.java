@@ -1,19 +1,9 @@
-abstract class Stack<T> {
+public class Stack<T> implements IStack<T>{
 	
-	private class Node<T> {
-			
-		private Node<T> next = null;
-		private T data = null;
-
-		private Node(T value) {
-			this.data = value;
-		}
-	}
+	int length = 0;
+    Node<T> top = null;
 	
-    private int length = 0;
-    private Node<T> top = null;
-
-    //Push
+	//Push
     public void push(T item) {
         Node<T> node = new Node<T>(item);
         if (top == null) {
