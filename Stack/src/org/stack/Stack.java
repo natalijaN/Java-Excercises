@@ -89,15 +89,12 @@ public class Stack<T> implements IStack<T> {
 		StringBuilder result = new StringBuilder();
 		Node<T> tempNode = null;
 		result.append("[ ");
-
 		if (top != null) {
 			for (tempNode = top; tempNode != null; tempNode = tempNode.next) {
 				result.append(tempNode.data + " ");
 			}
 		}
-
 		result.append("]");
-
 		return result.toString();
 	}
 }
