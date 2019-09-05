@@ -1,9 +1,12 @@
 package org.stack;
 
+import org.stack.exceptions.EmptyStack;
+import org.stack.exceptions.ListTooLargeException;
+
 public class App {
 
 	public static void main(String[] args) {
-		IStack<Integer> stack = new Stack<Integer>();
+		Stack<Integer> stack = new Stack<Integer>(4);
 
 		System.out.println();
 		System.out.println("Stack Length: " + stack.size());
@@ -12,20 +15,44 @@ public class App {
 		System.out.println("Is stack full: " + stack.isFull());
 		System.out.println();
 
-		stack.push(1);
-		stack.push(2);
-		stack.push(3);
-
+		try {
+			stack.push(1);
+			stack.push(2);
+			stack.push(3);
+			stack.push(4);
+			stack.push(5);
+		} catch (ListTooLargeException ex) {
+			System.out.println(ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	
+		System.out.println();
 		System.out.println(stack);
 		System.out.println("Stack Length: " + stack.size());
 		System.out.println("Is stack full: " + stack.isFull());
 		System.out.println();
 
-		System.out.println("Pop element: " + stack.pop());
+		try {
+			stack.pop();
+		} catch (EmptyStack ex) {
+			System.out.println(ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+
 		System.out.println("Stack Length: " + stack.size());
 		System.out.println();
 
-		System.out.println("Peeked element: " + stack.peek());
+
+		try {
+			stack.peek();
+		} catch (EmptyStack ex) {
+			System.out.println(ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		
 		System.out.println("Stack Length: " + stack.size());
 		System.out.println();
 
@@ -44,31 +71,20 @@ public class App {
 		System.out.println();
 
 		IStack<String> stackString = new Stack<String>();
-		stackString.push("Natalija");
-		stackString.push("Nikolova");
-		stackString.push("Negotino");
-		
+
+		try {
+			stackString.push("Natalija");
+			stackString.push("Nikolova");
+			stackString.push("Negotino");
+			stackString.push("Macedonia");
+		} catch (ListTooLargeException ex) {
+			System.out.println(ex.getMessage());
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		System.out.println();
 		System.out.println(stackString);
-		
-		stackString.push("Macedonia");
-		
-		System.out.println(stackString);
-		System.out.println("Stack Length: " + stackString.size());				
+		System.out.println("Stack Length: " + stackString.size());
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

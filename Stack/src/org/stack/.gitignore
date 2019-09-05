@@ -2,3 +2,6 @@
 /IStack.class
 /Node.class
 /Stack.class
+/ListTooLargeException.class
+/EmptyArray.class
+/EmptyStack.class
