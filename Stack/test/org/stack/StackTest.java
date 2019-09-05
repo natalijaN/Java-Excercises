@@ -3,15 +3,16 @@ package org.stack;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+import org.stack.exceptions.EmptyStackException;
 
 public class StackTest {
 	
 	@Test
 	public void push_StackWithoutElement_setItemAtTop() {
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.top = null;
 		stack.push(7);
 		final int expected = 7;
 		final int actual = stack.peek();	
@@ -21,7 +22,6 @@ public class StackTest {
 	@Test
 	public void push_StackWithElement_setItemAtTop() {
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.top = null;
 		stack.push(7);
 		stack.push(9);
 		final int expected = 9;
@@ -41,7 +41,9 @@ public class StackTest {
 	@Test
 	public void pop_StackWithOutElement_ReturnsNull() {
 		Stack<Integer> stack = new Stack<Integer>();
-		assertEquals(null, stack.pop());
+		assertThrows(EmptyStackException.class, () -> {
+			stack.pop();
+	    });
 	}
 
 	@Test
@@ -63,7 +65,9 @@ public class StackTest {
 	@Test
 	public void peek_StackWithoutElements_returnNull() {
 		Stack<Integer> stack = new Stack<Integer>();		
-		assertEquals(null, stack.peek());
+		assertThrows(EmptyStackException.class, () -> {
+			stack.peek();
+	    });
 	}
 
 	@Test
@@ -79,23 +83,21 @@ public class StackTest {
 	@Test
 	public void isEmpty_StackWithoutElements_returnTrue() {
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.top = null;
-		stack.length = 0;
-		final boolean expected = stack.top == null && stack.length == 0;
+		final boolean expected = stack.getTop() == null && stack.getLength() == 0;
 		assertEquals(expected, stack.isEmpty());
 	}
 	
 	@Test
 	public void isEmpty_StackWithoutElements_returnTrue2() {
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.top = null;
+		stack.setTop(null);
 		assertTrue(stack.isEmpty());
 	}
 	
 	@Test
 	public void isEmpty_StackWithoutElements_returnTrue3() {
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.length = 0;
+		stack.setLength(0);
 		assertTrue(stack.isEmpty());
 	}
 	
