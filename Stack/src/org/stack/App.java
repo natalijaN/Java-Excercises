@@ -1,6 +1,6 @@
 package org.stack;
 
-import org.stack.exceptions.EmptyStack;
+import org.stack.exceptions.EmptyStackException;
 import org.stack.exceptions.ListTooLargeException;
 
 public class App {
@@ -35,7 +35,7 @@ public class App {
 
 		try {
 			stack.pop();
-		} catch (EmptyStack ex) {
+		} catch (EmptyStackException ex) {
 			System.out.println(ex.getMessage());
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -47,7 +47,7 @@ public class App {
 
 		try {
 			stack.peek();
-		} catch (EmptyStack ex) {
+		} catch (EmptyStackException ex) {
 			System.out.println(ex.getMessage());
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

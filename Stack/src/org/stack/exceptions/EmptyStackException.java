@@ -1,10 +1,10 @@
 package org.stack.exceptions;
 
-public class EmptyStack extends RuntimeException {
+public class EmptyStackException extends RuntimeException {
 
 	private static final long serialVersionUID = 5873535188932738295L;
 
-	public EmptyStack(String message) {
+	public EmptyStackException(String message) {
         super(message);
     }
 }
