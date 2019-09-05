@@ -1,7 +1,7 @@
 package org.stack;
 
 import org.stack.exceptions.EmptyStackException;
-import org.stack.exceptions.ListTooLargeException;
+import org.stack.exceptions.StackTooLargeException;
 
 public class Stack<T> implements IStack<T> {
 
@@ -34,26 +34,22 @@ public class Stack<T> implements IStack<T> {
 	}
 
 	// Push
-	public void push(T item) {
+	public void push(T item) throws StackTooLargeException {
 		if (length >= DEFAULT_SIZE) {
-			throw new ListTooLargeException(String.format("Stack can't exceed more than %d items!", this.DEFAULT_SIZE));
-		} else {
-			createNode(item);
-			length++;
+			throw new StackTooLargeException(String.format("Stack can't exceed more than %d items!", this.DEFAULT_SIZE));
 		}
+		createNode(item);
+		length++;
 	}
 
 	// Pop
-	public T pop() {
-		T result = null;
-		if (top != null) {
-			result = top.data;
-			top = top.next;
-			length--;
-		}
-		if (result == null) {
+	public T pop() throws EmptyStackException {
+		if (isEmpty()) {
 			throw new EmptyStackException("Can not pop element from empty stack!");
 		}
+		T result = top.data;
+		top = top.next;
+		length--;
 		return result;
 	}
 
@@ -63,14 +59,11 @@ public class Stack<T> implements IStack<T> {
 	}
 
 	// Peek
-	public T peek() {
-		T result = null;
-		if (top != null) {
-			result = top.data;
-		}
-		if (result == null) {
+	public T peek() throws EmptyStackException {
+		if (isEmpty()) {
 			throw new EmptyStackException("Can not peek element from empty stack!");
 		}
+		T result = top.data;
 		return result;
 	}
 

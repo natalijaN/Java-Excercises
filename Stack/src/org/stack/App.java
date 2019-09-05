@@ -1,7 +1,7 @@
 package org.stack;
 
 import org.stack.exceptions.EmptyStackException;
-import org.stack.exceptions.ListTooLargeException;
+import org.stack.exceptions.StackTooLargeException;
 
 public class App {
 
@@ -21,7 +21,7 @@ public class App {
 			stack.push(3);
 			stack.push(4);
 			stack.push(5);
-		} catch (ListTooLargeException ex) {
+		} catch (StackTooLargeException ex) {
 			System.out.println(ex.getMessage());
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -35,6 +35,7 @@ public class App {
 
 		try {
 			stack.pop();
+			System.out.println("Popped element: " + stack.pop());
 		} catch (EmptyStackException ex) {
 			System.out.println(ex.getMessage());
 		} catch (Exception ex) {
@@ -47,6 +48,7 @@ public class App {
 
 		try {
 			stack.peek();
+			System.out.println("Peeked element: " + stack.peek());
 		} catch (EmptyStackException ex) {
 			System.out.println(ex.getMessage());
 		} catch (Exception ex) {
@@ -77,7 +79,7 @@ public class App {
 			stackString.push("Nikolova");
 			stackString.push("Negotino");
 			stackString.push("Macedonia");
-		} catch (ListTooLargeException ex) {
+		} catch (StackTooLargeException ex) {
 			System.out.println(ex.getMessage());
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

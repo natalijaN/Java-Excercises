@@ -7,12 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.stack.exceptions.EmptyStackException;
+import org.stack.exceptions.StackTooLargeException;
 
 public class StackTest {
 
 	@Test
-	public void push_StackWithoutElement_setItemAtTop() {
-		Stack<Integer> stack = new Stack<Integer>();
+	public void push_LessElementsThanDefaultSize_setItemAtTop() {
+		Stack<Integer> stack = new Stack<Integer>(3);
 		stack.push(7);
 		final int expected = 7;
 		final int actual = stack.peek();
@@ -20,13 +21,14 @@ public class StackTest {
 	}
 
 	@Test
-	public void push_StackWithElement_setItemAtTop() {
-		Stack<Integer> stack = new Stack<Integer>();
+	public void push_MoreElementsThanDefaultSize_throwsException() {
+		Stack<Integer> stack = new Stack<Integer>(3);
 		stack.push(7);
-		stack.push(9);
-		final int expected = 9;
-		final int actual = stack.peek();
-		assertEquals(expected, actual);
+		stack.push(7);
+		stack.push(7);
+		assertThrows(StackTooLargeException.class, () -> {
+			stack.push(7);
+		});
 	}
 
 	@Test
@@ -39,7 +41,7 @@ public class StackTest {
 	}
 
 	@Test
-	public void pop_StackWithOutElement_ReturnsNull() {
+	public void pop_StackWithOutElement_throwsException() {
 		Stack<Integer> stack = new Stack<Integer>();
 		assertThrows(EmptyStackException.class, () -> {
 			stack.pop();
@@ -63,7 +65,7 @@ public class StackTest {
 	}
 
 	@Test
-	public void peek_StackWithoutElements_returnNull() {
+	public void peek_StackWithoutElements_throwsException() {
 		Stack<Integer> stack = new Stack<Integer>();
 		assertThrows(EmptyStackException.class, () -> {
 			stack.peek();
@@ -73,10 +75,10 @@ public class StackTest {
 	@Test
 	public void grow_GrowLength_returnLengthPlusGrowLength() {
 		Stack<Integer> stack = new Stack<Integer>();
-		int growSize = 2;
-		int expectedLength = 2;
+		final int growSize = 2;
+		final int expectedLength = 2;
 		stack.grow(growSize);
-		int actualLength = stack.size();
+		final int actualLength = stack.size();
 		assertEquals(expectedLength, actualLength);
 	}
 
@@ -85,20 +87,6 @@ public class StackTest {
 		Stack<Integer> stack = new Stack<Integer>();
 		final boolean expected = stack.getTop() == null && stack.getLength() == 0;
 		assertEquals(expected, stack.isEmpty());
-	}
-
-	@Test
-	public void isEmpty_StackWithoutElements_returnTrue2() {
-		Stack<Integer> stack = new Stack<Integer>();
-		stack.setTop(null);
-		assertTrue(stack.isEmpty());
-	}
-
-	@Test
-	public void isEmpty_StackWithoutElements_returnTrue3() {
-		Stack<Integer> stack = new Stack<Integer>();
-		stack.setLength(0);
-		assertTrue(stack.isEmpty());
 	}
 
 	@Test
@@ -115,8 +103,8 @@ public class StackTest {
 	}
 
 	@Test
-	public void isFull_StackWithThreeElements_returnTrue() {
-		Stack<Integer> stack = new Stack<Integer>();
+	public void isFull_NumOfElementsSameAsDefaultSize_returnTrue() {
+		Stack<Integer> stack = new Stack<Integer>(3);
 		stack.push(7);
 		stack.push(7);
 		stack.push(7);
