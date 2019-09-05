@@ -9,23 +9,23 @@ import org.junit.jupiter.api.Test;
 import org.stack.exceptions.EmptyStackException;
 
 public class StackTest {
-	
+
 	@Test
 	public void push_StackWithoutElement_setItemAtTop() {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(7);
 		final int expected = 7;
-		final int actual = stack.peek();	
+		final int actual = stack.peek();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void push_StackWithElement_setItemAtTop() {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(7);
 		stack.push(9);
 		final int expected = 9;
-		final int actual = stack.peek();	
+		final int actual = stack.peek();
 		assertEquals(expected, actual);
 	}
 
@@ -34,16 +34,16 @@ public class StackTest {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(7);
 		final int expected = 7;
-		final int actual = stack.pop();	
+		final int actual = stack.pop();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void pop_StackWithOutElement_ReturnsNull() {
 		Stack<Integer> stack = new Stack<Integer>();
 		assertThrows(EmptyStackException.class, () -> {
 			stack.pop();
-	    });
+		});
 	}
 
 	@Test
@@ -58,16 +58,16 @@ public class StackTest {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(7);
 		final int expected = 7;
-		final int actual = stack.peek();	
+		final int actual = stack.peek();
 		assertEquals(expected, actual);
 	}
-	
+
 	@Test
 	public void peek_StackWithoutElements_returnNull() {
-		Stack<Integer> stack = new Stack<Integer>();		
+		Stack<Integer> stack = new Stack<Integer>();
 		assertThrows(EmptyStackException.class, () -> {
 			stack.peek();
-	    });
+		});
 	}
 
 	@Test
@@ -86,22 +86,21 @@ public class StackTest {
 		final boolean expected = stack.getTop() == null && stack.getLength() == 0;
 		assertEquals(expected, stack.isEmpty());
 	}
-	
+
 	@Test
 	public void isEmpty_StackWithoutElements_returnTrue2() {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.setTop(null);
 		assertTrue(stack.isEmpty());
 	}
-	
+
 	@Test
 	public void isEmpty_StackWithoutElements_returnTrue3() {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.setLength(0);
 		assertTrue(stack.isEmpty());
 	}
-	
-	
+
 	@Test
 	public void isEmpty_StackWithElements_returnFalse() {
 		Stack<Integer> stack = new Stack<Integer>();
@@ -112,16 +111,16 @@ public class StackTest {
 	@Test
 	public void isFull_EmptyStack_returnFalse() {
 		Stack<Integer> stack = new Stack<Integer>();
-		assertFalse(stack.isFull());	
+		assertFalse(stack.isFull());
 	}
-	
+
 	@Test
 	public void isFull_StackWithThreeElements_returnTrue() {
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(7);
 		stack.push(7);
 		stack.push(7);
-		assertTrue(stack.isFull());	
+		assertTrue(stack.isFull());
 	}
 
 	@Test
