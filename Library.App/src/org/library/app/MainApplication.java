@@ -9,12 +9,12 @@ public class MainApplication {
 
 		Library library = new Library();
 
-		for (User u : library.users) {
+		for (User u : library.getAllUsers()) {
 			System.out.println(u.toString());
 			System.out.println();
 		}
 
-		for (Book b : library.books) {
+		for (Book b : library.getAllBooks()) {
 			System.out.println(b.toString());
 			System.out.println();
 		}

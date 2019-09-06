@@ -9,8 +9,8 @@ import org.library.db.IDbContract;
 import org.library.db.PostgresHelper;
 
 public class Library {
-	public List<User> users = new ArrayList<User>();
-	public List<Book> books = new ArrayList<Book>();
+	private List<User> users = new ArrayList<User>();
+	private List<Book> books = new ArrayList<Book>();
 
 	public Library() throws SQLException {
 		PostgresHelper client = setConnectionToDb();
