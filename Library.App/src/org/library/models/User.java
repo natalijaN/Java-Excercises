@@ -53,17 +53,17 @@ public class User {
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
-	
+
 	public void borrowBook(Book book) {
-		if(books.size() == 3) {
+		if (books.size() == 3) {
 			System.out.println("User can not borrow more than 3 books.");
 		}
 		books.add(book);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "First name: " + getFirstName() + "\nLast name: " +  getFirstName() +
-				"\nNumber of books borrowed: " + getborrowedBooks();
+		return "First name: " + getFirstName() + "\nLast name: " + 
+				getFirstName() + "\nNumber of books borrowed: " + getborrowedBooks();
 	}
 }
