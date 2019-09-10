@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.library.db.IDbContract;
 import org.library.db.PostgresHelper;
@@ -14,8 +15,7 @@ public class Library {
 
 	public Library() throws SQLException {
 		PostgresHelper client = setConnectionToDb();
-		getUsers(client);
-		getBooks(client);
+		getData(client);
 	}
 
 	public List<Book> getAllBooks() {
@@ -43,6 +43,29 @@ public class Library {
 		return client;
 	}
 
+	private void getData(PostgresHelper client) throws SQLException {
+		getUsers(client);
+		getBooks(client);
+		ResultSet relations = client.execQuery("SELECT * FROM relations");
+
+		while (relations.next()) {
+			int userId = relations.getInt(1);
+			Optional<User> user = this.users.stream().filter(u -> u.getId() == userId).findFirst();
+			User finalUser = user.orElse(null);
+
+			int bookId = relations.getInt(2);
+			Optional<Book> book = this.books.stream().filter(u -> u.getId() == bookId).findFirst();
+			Book finalBook = book.orElse(null);
+
+			finalUser.setBooks(finalBook);
+			int availableBooks = finalBook.getAvailable() - 1;
+
+			client.updateQuery(String.format("UPDATE books SET available = %d WHERE id=%d", availableBooks, bookId));
+		}
+		this.books.clear();
+		getBooks(client);
+	}
+
 	private void getBooks(PostgresHelper client) throws SQLException {
 		ResultSet books = client.execQuery("SELECT * FROM books");
 		while (books.next()) {
@@ -51,6 +74,7 @@ public class Library {
 			book.setTitle(books.getString(2));
 			book.setAuthor(books.getString(3));
 			book.setNumberOfCopies(books.getInt(4));
+			book.setAvailable(books.getInt(5));
 			this.books.add(book);
 		}
 	}
@@ -64,6 +88,18 @@ public class Library {
 			user.setLastName(users.getString(3));
 			user.setborrowedBooks(users.getInt(4));
 			this.users.add(user);
+		}
+	}
+
+	public void reserveBook(int userId, int bookId) throws SQLException {
+		Optional<User> user = this.users.stream().filter(u -> u.getId() == userId).findFirst();
+		User finalUser = user.orElse(null);
+		if (finalUser.getborrowedBooks() < 3) {
+			PostgresHelper client = setConnectionToDb();
+			client.updateQuery(String.format("INSERT INTO relations (userid, bookid) VALUES (%d,%d);", userId, bookId));
+			client.updateQuery(String.format("UPDATE users SET borrowedbooks=%d WHERE id=%d;", finalUser.getborrowedBooks() + 1, finalUser.getId()));
+		} else {
+			System.out.println("Can not borrow more than 3 books!");
 		}
 	}
 }

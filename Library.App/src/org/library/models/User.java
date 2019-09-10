@@ -1,5 +1,6 @@
 package org.library.models;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,11 +8,17 @@ public class User {
 	private int id;
 	private String firstName;
 	private String lastName;
-	private int borrowedBooks;
-	private List<Book> books;
+	public int borrowedBooks;
+	private List<Book> books = new ArrayList<>();
 
-	public User() {
-		setBooks(new ArrayList<>());
+	public User() throws SQLException {
+	}
+
+	public User(int id, String firstName, String lastName, int borrowedBooks) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.borrowedBooks = borrowedBooks;
 	}
 
 	public int getId() {
@@ -39,7 +46,7 @@ public class User {
 	}
 
 	public int getborrowedBooks() {
-		return borrowedBooks;
+		return books.size();
 	}
 
 	public void setborrowedBooks(int borrowedBooks) {
@@ -50,20 +57,14 @@ public class User {
 		return books;
 	}
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
-
-	public void borrowBook(Book book) {
-		if (books.size() == 3) {
-			System.out.println("User can not borrow more than 3 books.");
-		}
-		books.add(book);
+	public void setBooks(Book book) {
+		this.books.add(book);
 	}
 
 	@Override
 	public String toString() {
-		return "First name: " + getFirstName() + "\nLast name: " + 
-				getFirstName() + "\nNumber of books borrowed: " + getborrowedBooks();
+		return "First name: " + getFirstName() + "\nLast name: " + getLastName() + "\nNumber of books borrowed: "
+				+ getborrowedBooks();
 	}
+
 }

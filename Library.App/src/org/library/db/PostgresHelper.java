@@ -2,6 +2,7 @@ package org.library.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -35,5 +36,15 @@ public class PostgresHelper {
 	public ResultSet execQuery(String query) throws SQLException {
 		return this.connection.createStatement().executeQuery(query);
 	}
+	
+	public void updateQuery(String query) {
+ 
+        try (PreparedStatement pstmt = this.connection.prepareStatement(query)) {
+            pstmt.executeUpdate();
+ 
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
 }

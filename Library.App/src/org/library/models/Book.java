@@ -5,7 +5,7 @@ public class Book {
 	private String title;
 	private String author;
 	private int numberOfCopies;
-	
+	private int available;
 	public Book() {}
 
 	public int getId() {
@@ -39,11 +39,23 @@ public class Book {
 	public void setNumberOfCopies(int numberOfCopies) {
 		this.numberOfCopies = numberOfCopies;
 	}
+
+	public void setBorrowedCounter() {
+		this.numberOfCopies = this.numberOfCopies - 1;
+	}
 	
+	public int getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(int available) {
+		this.available = available;
+	}
+
 	@Override
 	public String toString() {
 		return "Book title: " + getTitle() + "\nBook author: " +  getAuthor() +
-				"\nNumber of book copies: " + getNumberOfCopies();
+				"\nNumber of book copies: " + getNumberOfCopies() + "\nBook id: " + getId() + "\nAvailable: " + getAvailable();
 	}
 
 }
