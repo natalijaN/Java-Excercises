@@ -14,7 +14,8 @@ public class PostgresHelper {
 	private String user;
 	private String pass;
 
-	protected PostgresHelper() {}
+	protected PostgresHelper() {
+	}
 
 	public PostgresHelper(String host, String dbName, String user, String pass) {
 		this.host = host;
@@ -36,15 +37,15 @@ public class PostgresHelper {
 	public ResultSet execQuery(String query) throws SQLException {
 		return this.connection.createStatement().executeQuery(query);
 	}
-	
+
 	public void updateQuery(String query) {
- 
-        try (PreparedStatement pstmt = this.connection.prepareStatement(query)) {
-            pstmt.executeUpdate();
- 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+
+		try (PreparedStatement pstmt = this.connection.prepareStatement(query)) {
+			pstmt.executeUpdate();
+
+		} catch (SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 
 }
