@@ -9,7 +9,7 @@ public abstract class InputValidator {
 		int number = -1;
 		while (number < 0) {
 			try {
-				System.out.println("Please enter valid positive number: ");
+				System.out.println("Please enter valid number: ");
 				number = inputNumber.nextInt();
 			} catch (InputMismatchException ex) {
 				inputNumber.next();
