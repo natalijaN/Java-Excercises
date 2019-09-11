@@ -1,6 +1,5 @@
 package org.library.models;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +10,7 @@ public class User {
 	public int borrowedBooks;
 	private List<Book> books = new ArrayList<>();
 
-	public User() throws SQLException {
-	}
+	public User() {}
 
 	public User(int id, String firstName, String lastName, int borrowedBooks) {
 		this.id = id;

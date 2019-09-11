@@ -33,7 +33,6 @@ public class Library {
 
 		try {
 			if (client.connect()) {
-				System.out.println("DB connected");
 				System.out.println();
 			}
 
@@ -56,11 +55,7 @@ public class Library {
 			int bookId = relations.getInt(2);
 			Optional<Book> book = this.books.stream().filter(u -> u.getId() == bookId).findFirst();
 			Book finalBook = book.orElse(null);
-
 			finalUser.setBooks(finalBook);
-			int availableBooks = finalBook.getAvailable() - 1;
-
-			client.updateQuery(String.format("UPDATE books SET available = %d WHERE id=%d", availableBooks, bookId));
 		}
 		this.books.clear();
 		getBooks(client);
@@ -91,15 +86,39 @@ public class Library {
 		}
 	}
 
-	public void reserveBook(int userId, int bookId) throws SQLException {
+	public void reserveBook(int userId, int bookId) {
 		Optional<User> user = this.users.stream().filter(u -> u.getId() == userId).findFirst();
 		User finalUser = user.orElse(null);
-		if (finalUser.getborrowedBooks() < 3) {
+		
+		Optional<Book> book = this.books.stream().filter(u -> u.getId() == bookId).findFirst();
+		Book finalBook = book.orElse(null);
+
+		if(finalUser.getBooks().stream().anyMatch(b -> b.getId() == finalBook.getId())) {
+			System.out.println("You already have this book!");
+		} else if(finalBook.getAvailable() == 0) {
+			System.out.println("This book is not available!");
+		} else if (finalUser.getborrowedBooks() < 3) {
 			PostgresHelper client = setConnectionToDb();
 			client.updateQuery(String.format("INSERT INTO relations (userid, bookid) VALUES (%d,%d);", userId, bookId));
 			client.updateQuery(String.format("UPDATE users SET borrowedbooks=%d WHERE id=%d;", finalUser.getborrowedBooks() + 1, finalUser.getId()));
+			client.updateQuery(String.format("UPDATE books SET available=%d WHERE id=%d;", finalBook.getAvailable() - 1, finalBook.getId()));
+			System.out.println("Congratulations! You rented the book!");
 		} else {
 			System.out.println("Can not borrow more than 3 books!");
 		}
+	}
+
+	public void returnBook(int userId, int bookId) {
+		Optional<User> user = this.users.stream().filter(u -> u.getId() == userId).findFirst();
+		User finalUser = user.orElse(null);
+		
+		Optional<Book> book = this.books.stream().filter(u -> u.getId() == bookId).findFirst();
+		Book bookForReturn = book.orElse(null);
+		
+		PostgresHelper client = setConnectionToDb();
+		client.updateQuery(String.format("DELETE FROM relations WHERE userid=%d AND bookid=%d;", userId, bookId));
+		client.updateQuery(String.format("UPDATE users SET borrowedbooks=%d WHERE id=%d;", finalUser.getborrowedBooks() - 1, finalUser.getId()));
+		client.updateQuery(String.format("UPDATE books SET available=%d WHERE id=%d;", bookForReturn.getAvailable() + 1, bookForReturn.getId()));
+		System.out.println("Book returned to the library!");
 	}
 }

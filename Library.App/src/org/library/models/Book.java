@@ -6,6 +6,7 @@ public class Book {
 	private String author;
 	private int numberOfCopies;
 	private int available;
+	
 	public Book() {}
 
 	public int getId() {
@@ -56,6 +57,10 @@ public class Book {
 	public String toString() {
 		return "Book title: " + getTitle() + "\nBook author: " +  getAuthor() +
 				"\nNumber of book copies: " + getNumberOfCopies() + "\nBook id: " + getId() + "\nAvailable: " + getAvailable();
+	}
+	
+	public String reviewBook() {
+		return "Book title: " + getTitle() + "\nBook author: " +  getAuthor() + "\nBook id: " + getId();
 	}
 
 }
