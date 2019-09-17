@@ -19,15 +19,15 @@ public class InvestmentCalculator {
 	}
 
 	public double investmentInFirstYear() {
-		return this.investment = this.investment + this.investment * increasementFirstYear;
+		return investment = investment + investment * increasementFirstYear;
 	}
 
 	public double investmentInSecondYear() {
-		return this.investment = investmentInFirstYear() - this.lostInSecondYear;
+		return investment = investmentInFirstYear() - lostInSecondYear;
 	}
 	
 	public double investmentInThirdYear() {
-		return this.investment = investmentInSecondYear() + this.investment * increasementThirdYear;
+		return investment = investmentInSecondYear() + investment * increasementThirdYear;
 	}
 	
 }
