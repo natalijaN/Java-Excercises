@@ -3,7 +3,7 @@ import java.awt.Point;
 public class PointSetter {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		Point location = new Point();
 		location.x = 3;
 		location.y = 5;
