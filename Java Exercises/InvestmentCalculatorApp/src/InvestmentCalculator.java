@@ -1,29 +1,25 @@
 public class InvestmentCalculator {
 	private double investment;
-	private double increasmentFirstYear;
+	private double increasementFirstYear;
 	private double lostInSecondYear;
-	private double increasmentThirdYear;
-	
-	private static final double VALUE_FIRST_YEAR = 0.40;
-	private static final double VALUE_SECOND_YEAR = 1500;
-	private static final double VALUE_THIRD_YEAR = 0.12;
+	private double increasementThirdYear;
 	
 	public InvestmentCalculator() {
-		this.increasmentFirstYear = VALUE_FIRST_YEAR;
-		this.lostInSecondYear = VALUE_SECOND_YEAR;
-		this.increasmentThirdYear = VALUE_THIRD_YEAR;
+		this.increasementFirstYear =  0.40;
+		this.lostInSecondYear =  1500;
+		this.increasementThirdYear = 0.12;
 	}
 
-	public double getInvesment() {
+	public double getInvestment() {
 		return investment;
 	}
 
-	public void setInvesment(double investment) {
+	public void setInvestment(double investment) {
 		this.investment = investment;
 	}
 
 	public double investmentInFirstYear() {
-		return this.investment = this.investment + this.investment * increasmentFirstYear;
+		return this.investment = this.investment + this.investment * increasementFirstYear;
 	}
 
 	public double investmentInSecondYear() {
@@ -31,7 +27,7 @@ public class InvestmentCalculator {
 	}
 	
 	public double investmentInThirdYear() {
-		return this.investment = investmentInSecondYear() + this.investment * increasmentThirdYear;
+		return this.investment = investmentInSecondYear() + this.investment * increasementThirdYear;
 	}
 	
 }

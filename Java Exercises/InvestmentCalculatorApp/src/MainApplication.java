@@ -9,7 +9,7 @@ public class MainApplication {
 	public static void main(String[] args) {
 
 		InvestmentCalculator investment = new InvestmentCalculator();
-		investment.setInvesment(14000);
+		investment.setInvestment(14000);
 		
 		System.out.println(String.format("Investment in the third year is %.2f$.", investment.investmentInThirdYear()));
 	}
